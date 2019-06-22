@@ -1,6 +1,7 @@
 # '''
 # pip install flask-restful
 # pip install Flask-MySQLdb
+# pip install flask-migrate
 # '''
 from flask import Flask, jsonify, make_response
 from flask_restful import Resource, Api

@@ -1,7 +1,27 @@
 from datetime import datetime
 
-from app_models import db
+from flask import Flask
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
+from flask_sqlalchemy import SQLAlchemy
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'WRON'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@127.0.0.1:3306/blog_api'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+db = SQLAlchemy(app)
+migrate = Migrate(app,db)
+manager = Manager(app)
+
+# @manager.command
+# def create_db():
+# 	'''说明文件写在此处'''
+# 	from models import db
+# 	db.create_all()
+# 	print('数据表创建完成')
+
+manager.add_command('db',MigrateCommand) #添加db 命令（runserver的用法）
 
 class Articles(db.Model):
 	__tablename__ = 'articles'		# 自定义数据表名称，如不设置默认设置为类名
@@ -28,6 +48,11 @@ class User(db.Model):
 	add_time = db.Column(db.DateTime, default=datetime.now)
 	def __repr__(self):
 		return '<User> %s' % self.username
-
-# if __name__ == '__main__':
-#     db.create_all()
+'''
+python main.py db init 创建数据表
+python main.py db migrate 提交修改 
+python main.py db upgrade 执行修改 
+python main.py db downgrade 回退修改
+'''
+if __name__ == '__main__':
+	manager.run()
