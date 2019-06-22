@@ -49,10 +49,10 @@ class User(db.Model):
 	def __repr__(self):
 		return '<User> %s' % self.username
 '''
-python main.py db init 创建数据表
-python main.py db migrate 提交修改 
-python main.py db upgrade 执行修改 
-python main.py db downgrade 回退修改
+python models.py db init 创建数据表
+python models.py db migrate 提交修改 
+python models.py db upgrade 执行修改 
+python models.py db downgrade 回退修改
 '''
 if __name__ == '__main__':
 	manager.run()
