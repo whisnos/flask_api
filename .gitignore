@@ -1,5 +1,1 @@
-settings.py
-*.pyc
-.idea/
-templates/
-static/
+migrations/
