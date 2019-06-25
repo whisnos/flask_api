@@ -7,9 +7,9 @@ from flask_migrate import Migrate, MigrateCommand
 # from gunicorn.app.base import BaseApplication
 # from gunicorn.six import iteritems
 from multiprocessing import cpu_count
-from apps import create_app, db
+from apps import create_app ,db
 from config import config
-
+# from apps.models import db
 app = create_app(config)
 
 manager = Manager(app)

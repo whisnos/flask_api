@@ -5,7 +5,7 @@ from flask_restful.reqparse import RequestParser
 
 from apps.common.maketoken import jwtEncoding
 from apps.common.utils import trueReturn
-from models import User
+# from models import User
 
 articles = Blueprint('articles', __name__)
 
@@ -13,28 +13,28 @@ articles = Blueprint('articles', __name__)
 def show():
     return 'app01.hello'
 
-@articles.route('/login', methods=['GET', 'POST'])
-def login():
-    str = request.get_json()
-    print(str)
-    name = str['name']
-
-    admin = User.query.filter_by(name=name).first() #这里需要重新修改成成缓存里取，减少处理时间
-
-    userInfo = {
-        "id":admin.id,
-        "username":admin.name,
-        "email":admin.email
-    }
-
-    if admin == None:
-        return jsonify(trueReturn("{'ok':Flase}", "not the user"))
-    else:
-        #request.headers['Authorization']='liuliuyyeshibushidslfdslfsdkfkdsf23234243kds'
-        #login_user(admin)
-        token = jwtEncoding(userInfo)
-        print(token)
-        return jsonify(trueReturn("{'ok':True,'token':"+token.decode()+"}", "you are sucess"))
+# @articles.route('/login', methods=['GET', 'POST'])
+# def login():
+#     str = request.get_json()
+#     print(str)
+#     name = str['name']
+#
+#     admin = User.query.filter_by(name=name).first() #这里需要重新修改成成缓存里取，减少处理时间
+#
+#     userInfo = {
+#         "id":admin.id,
+#         "username":admin.name,
+#         "email":admin.email
+#     }
+#
+#     if admin == None:
+#         return jsonify(trueReturn("{'ok':Flase}", "not the user"))
+#     else:
+#         #request.headers['Authorization']='liuliuyyeshibushidslfdslfsdkfkdsf23234243kds'
+#         #login_user(admin)
+#         token = jwtEncoding(userInfo)
+#         print(token)
+#         return jsonify(trueReturn("{'ok':True,'token':"+token.decode()+"}", "you are sucess"))
 
 
 api = Api(articles)

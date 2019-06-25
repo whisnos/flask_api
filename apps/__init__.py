@@ -4,6 +4,7 @@ pip install Flask-MySQLdb
 pip install flask-migrate
 pip install flask_script
 pip install Flask-JWT
+pip install pymysql
 '''
 import flask_restful
 from flask import Flask, jsonify, make_response, abort
@@ -14,8 +15,8 @@ from flask_restful.reqparse import RequestParser
 from flask_mysqldb import MySQL
 login_manager = LoginManager()
 from apps.common import pretty_result, code
-from models import db
-
+# from models import db
+from apps.models import db
 
 def _custom_abort(http_status_code, **kwargs):
     """
@@ -57,13 +58,13 @@ def create_app(config):
     # 自定义abort 400 响应数据格式
     flask_restful.abort = _custom_abort
     # 认证
-    from apps.auth.auths import Auth
-    auth = Auth()
-    jwt = JWT(app, auth.authenticate, auth.identity)
+    # from apps.auth.auths import Auth
+    # auth = Auth()
+    # jwt = JWT(app, auth.authenticate, auth.identity)
 
     # 数据库初始化
     db.init_app(app)
-
+    db.create_all(app=app)
     login_manager.session_protection = "strong"
     login_manager.init_app(app)
 
