@@ -1,4 +1,1 @@
-from flask import Blueprint
-
-articles = Blueprint('articles', __name__)
-from . import views
+from .views import articles
