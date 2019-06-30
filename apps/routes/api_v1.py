@@ -11,3 +11,7 @@ api = Api(api_v1)
 
 api.add_resource(ArticlesView, '/articles')
 api.add_resource(UserInfoViewset, '/users')
+
+@api_v1.app_errorhandler(404)
+def not_found(e):
+	return 'error'
